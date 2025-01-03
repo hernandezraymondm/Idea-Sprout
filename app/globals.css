@@ -71,7 +71,7 @@
   }
 
   .hero_container {
-    @apply w-full bg-primary min-h-[530px] pattern flex justify-center items-center flex-col py-10 px-6;
+    @apply w-full bg-primary min-h-[530px] flex justify-center items-center flex-col py-10 px-6;
   }
 
   .tag {
@@ -219,19 +219,6 @@
 
   .category-tag {
     @apply font-medium text-[16px] bg-primary-100 px-4 py-2 rounded-full;
-  }
-
-  .pattern {
-    background-image: linear-gradient(
-      to right,
-      transparent 49.5%,
-      rgba(251, 232, 67, 0.2) 44%,
-      rgba(221, 190, 13, 0.712) 56%,
-      transparent 50.5%
-    );
-    background-size: 4% 100%;
-    background-position: center;
-    background-repeat: repeat-x;
   }
 
   .tag-tri {

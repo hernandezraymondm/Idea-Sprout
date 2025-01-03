@@ -8,8 +8,8 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <header className="px-5 py-3 bg-white shadow-sm font-work-sans">
-      <nav className="flex justify-between items-center">
+    <header className="px-5 bg-white shadow-sm font-work-sans">
+      <nav className="flex justify-between items-center h-16">
         <Link href="/" className="flex items-center text-3xl font-black gap-1">
           <span className="text-logo text-primary -mt-2">Idea</span>
           <Image
@@ -21,7 +21,7 @@ const Navbar = async () => {
           />
           <span className="text-logo text-secondary -mt-2">Sprout</span>
         </Link>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 font-semibold text-lg">
           {session && session?.user ? (
             <>
               <Link href="/startup/create">
