@@ -7,7 +7,7 @@ import { writeClient } from "./sanity/lib/write-client";
 
 const getProviderId = (account, profile) => {
   if (account.provider === "google") return profile.sub;
-  if (account.provider === "github") return profile.id;
+  if (account.provider === "github") return profile.id.toString();
 };
 
 const fetchUser = async (id) => {
