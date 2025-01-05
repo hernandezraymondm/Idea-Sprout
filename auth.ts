@@ -7,7 +7,7 @@ import { writeClient } from "./sanity/lib/write-client";
 
 const getProviderId = (account, profile) => {
   if (account.provider === "google") return profile.sub;
-  if (account.provider === "github") return profile.id.toString();
+  if (account.provider === "github") return profile.id;
 };
 
 const fetchUser = async (id) => {
@@ -71,7 +71,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      session.id = token.id;
+      Object.assign(session, { id: token.id });
       return session;
     },
   },
