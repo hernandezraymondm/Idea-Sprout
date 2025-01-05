@@ -1,8 +1,10 @@
 import { auth } from "@/auth";
 import SearchForm from "@/components/SearchForm";
 import StartupCard, { StartupCardType } from "@/components/StartupCard";
+import { client } from "@/sanity/lib/client";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
-import { STARTUPS_QUERY } from "@/sanity/lib/queries";
+import { PLAYLIST_BY_SLUG_QUERY, STARTUPS_QUERY } from "@/sanity/lib/queries";
+import { BadgeCheck, Crown } from "lucide-react";
 
 export default async function Home({
   searchParams,
@@ -16,7 +18,12 @@ export default async function Home({
 
   console.log(session?.id);
 
-  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
+  const [{ select: editorPosts }, { data: posts }] = await Promise.all([
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+      slug: "editor-s-choice",
+    }),
+    sanityFetch({ query: STARTUPS_QUERY, params }),
+  ]);
 
   return (
     <>
@@ -30,9 +37,30 @@ export default async function Home({
         <SearchForm query={query} />
       </section>
 
+      {editorPosts?.length > 0 && (
+        <section className="section_container">
+          <div className="flex items-center gap-2">
+            <p className="text-30-semibold">Editor&apos;s Choice</p>
+            <Crown color="#19bde5" size={30} />
+          </div>
+          <ul className="mt-7 card_grid">
+            {editorPosts.map((post: StartupCardType, i: number) => (
+              <StartupCard key={i} post={post} />
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section className="section_container">
         <p className="text-30-semibold">
-          {query ? `Search results for "${query}"` : "Latest Pitches"}
+          {query ? (
+            `Search results for "${query}"`
+          ) : (
+            <div className="flex items-center gap-2">
+              <p className="text-30-semibold">Latest Pitches</p>
+              <BadgeCheck color="#7edd0d" size={30} />
+            </div>
+          )}
         </p>
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
