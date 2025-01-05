@@ -7,6 +7,7 @@ const SearchForm = ({ query }: { query?: string }) => {
   return (
     <Form action="/" scroll={false} className="search-form">
       <input
+        autoComplete="off"
         type="text"
         name="query"
         defaultValue={query}

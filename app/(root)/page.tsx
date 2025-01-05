@@ -18,11 +18,11 @@ export default async function Home({
 
   console.log(session?.id);
 
-  const [{ select: editorPosts }, { data: posts }] = await Promise.all([
+  const [{ data: posts }, { select: editorPosts }] = await Promise.all([
+    sanityFetch({ query: STARTUPS_QUERY, params }),
     client.fetch(PLAYLIST_BY_SLUG_QUERY, {
       slug: "editor-s-choice",
     }),
-    sanityFetch({ query: STARTUPS_QUERY, params }),
   ]);
 
   return (
@@ -35,6 +35,26 @@ export default async function Home({
           Submit Ideas, Vote on Pitches, and Connect with Entrepreneurs.
         </p>
         <SearchForm query={query} />
+      </section>
+
+      <section className="section_container">
+        {query ? (
+          <p className="text-30-semibold">Search results for {query}</p>
+        ) : (
+          <div className="flex items-center gap-2">
+            <p className="text-30-semibold">Latest Pitches</p>
+            <BadgeCheck color="#7edd0d" size={30} />
+          </div>
+        )}
+        <ul className="mt-7 card_grid">
+          {posts?.length > 0 ? (
+            posts.map((post: StartupCardType) => (
+              <StartupCard key={post?._id} post={post} />
+            ))
+          ) : (
+            <p className="no-results">No startups found</p>
+          )}
+        </ul>
       </section>
 
       {editorPosts?.length > 0 && (
@@ -51,27 +71,6 @@ export default async function Home({
         </section>
       )}
 
-      <section className="section_container">
-        <p className="text-30-semibold">
-          {query ? (
-            `Search results for "${query}"`
-          ) : (
-            <div className="flex items-center gap-2">
-              <p className="text-30-semibold">Latest Pitches</p>
-              <BadgeCheck color="#7edd0d" size={30} />
-            </div>
-          )}
-        </p>
-        <ul className="mt-7 card_grid">
-          {posts?.length > 0 ? (
-            posts.map((post: StartupCardType) => (
-              <StartupCard key={post?._id} post={post} />
-            ))
-          ) : (
-            <p className="no-results">No startups found</p>
-          )}
-        </ul>
-      </section>
       <SanityLive />
     </>
   );
