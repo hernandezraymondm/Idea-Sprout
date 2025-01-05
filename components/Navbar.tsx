@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Login from "./Login";
+import { BadgePlus, LogOut } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const Navbar = async () => {
   const session = await auth();
@@ -14,7 +16,7 @@ const Navbar = async () => {
           <span className="text-logo text-primary -mt-2">Idea</span>
           <Image
             className="logo"
-            src="/logo.png"
+            src="/images/logo.png"
             alt="logo"
             width={35}
             height={35}
@@ -24,8 +26,9 @@ const Navbar = async () => {
         <div className="flex items-center gap-5 font-semibold text-lg">
           {session && session?.user ? (
             <>
-              <Link href="/startup/create">
-                <span>Create</span>
+              <Link href="/startup/create" className="flex">
+                <span className="max-sm:hidden">Create</span>
+                <BadgePlus className="size-6 sm:hidden" />
               </Link>
 
               <form
@@ -34,11 +37,20 @@ const Navbar = async () => {
                   await signOut({ redirectTo: "/" });
                 }}
               >
-                <button type="submit">Logout</button>
+                <button type="submit" className="flex">
+                  <span className="max-sm:hidden">Logout</span>
+                  <LogOut className="size-6 sm:hidden text-red-500" />
+                </button>
               </form>
 
-              <Link href={`/user/${session.user.id}`}>
-                <span>{session?.user?.name}</span>
+              <Link href={`/user/${session?.id}`}>
+                <Avatar className="size-10">
+                  <AvatarImage
+                    src={session?.user?.image || ""}
+                    alt={session?.user?.name || ""}
+                  />
+                  <AvatarFallback>AV</AvatarFallback>
+                </Avatar>
               </Link>
             </>
           ) : (
