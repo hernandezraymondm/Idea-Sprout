@@ -172,7 +172,11 @@
   }
 
   .startup-card_btn {
-    @apply rounded-full bg-black-200 font-medium text-[16px] text-white px-5 py-3 !important;
+    @apply rounded-full font-medium text-[16px] text-white px-5 py-3 !important;
+  }
+
+  .startup-card_btn_skeleton {
+    @apply bg-zinc-400 h-8 w-16 rounded-full;
   }
 
   .startup-card_skeleton {

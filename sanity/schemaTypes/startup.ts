@@ -44,5 +44,13 @@ export const startup = defineType({
       name: "pitch",
       type: "markdown",
     }),
+    defineField({
+      name: "upvotes",
+      type: "number",
+    }),
+    defineField({
+      name: "downvotes",
+      type: "number",
+    }),
   ],
 });

@@ -1,9 +1,29 @@
 "use server";
 
-import { auth } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { parseServerActionResponse } from "@/lib/utils";
 import slugify from "slugify";
 import { writeClient } from "@/sanity/lib/write-client";
+
+export const signInWithGoogle = async () => {
+  await signIn("google");
+};
+export const signInWithGitHub = async () => {
+  await signIn("github");
+};
+
+export const handleUpvote = async (
+  id: string,
+  currentUpvotes: number,
+  setLoading: (state: boolean) => void
+) => {
+  await writeClient
+    .patch(id)
+    .set({ upvotes: currentUpvotes + 1 })
+    .commit()
+    .then(() => setLoading(false));
+  return currentUpvotes + 1;
+};
 
 export const createPitch = async (
   state: any,

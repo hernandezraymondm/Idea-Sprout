@@ -13,6 +13,8 @@ export const STARTUPS_QUERY =
   description,
   category,
   image,
+  upVotes,
+  downVotes,
 }`);
 
 export const STARTUP_BY_ID_QUERY =
@@ -29,11 +31,25 @@ export const STARTUP_BY_ID_QUERY =
   category,
   image,
   pitch,
+  upvotes,
+  downvotes,
 }`);
 
 export const STARTUP_VIEWS_QUERY = defineQuery(`
     *[_type == "startup" && _id == $id][0]{
         _id, views
+    }
+`);
+
+export const STARTUP_UPVOTES_QUERY = defineQuery(`
+    *[_type == "startup" && _id == $id][0]{
+        _id, upvotes
+    }
+`);
+
+export const STARTUP_DOWNVOTES_QUERY = defineQuery(`
+    *[_type == "startup" && _id == $id][0]{
+        _id, downvotes
     }
 `);
 

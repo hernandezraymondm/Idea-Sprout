@@ -5,6 +5,7 @@ import React from "react";
 import Login from "./Login";
 import { BadgePlus, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 
 const Navbar = async () => {
   const session = await auth();
@@ -58,7 +59,14 @@ const Navbar = async () => {
               </Link>
             </>
           ) : (
-            <Login />
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="login">Login</button>
+              </DialogTrigger>
+              <DialogContent className="p-8 bg-white border-4 border-black rounded-2xl shadow-200">
+                <Login />
+              </DialogContent>
+            </Dialog>
           )}
         </div>
       </nav>
