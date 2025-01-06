@@ -71,7 +71,7 @@
   }
 
   .hero_container {
-    @apply w-full bg-primary min-h-[530px] flex justify-center items-center flex-col py-10 px-6;
+    @apply w-full bg-primary flex justify-center items-center flex-col py-10 px-6;
   }
 
   .tag {
