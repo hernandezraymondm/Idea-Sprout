@@ -65,8 +65,8 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
           height={512}
         />
       </Link>
-      <div className="flex-between gap-2 mt-5 flex-wrap">
-        <Button className="startup-card_btn bg-black-200" asChild>
+      <div className="flex-between gap-1 mt-5">
+        <Button className="startup-card_btn bg-black-200 " asChild>
           <Link href={`/startup/${_id}`}>Details</Link>
         </Button>
         <div className="flex gap-1">

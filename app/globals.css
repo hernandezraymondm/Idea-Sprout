@@ -91,11 +91,11 @@
   }
 
   .card_grid {
-    @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5;
+    @apply grid lg:grid-cols-3 md:grid-cols-2 gap-5;
   }
 
   .card_grid-sm {
-    @apply grid sm:grid-cols-2 gap-5;
+    @apply grid md:grid-cols-2 gap-5;
   }
 
   .no-result {
