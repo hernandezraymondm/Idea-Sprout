@@ -8,6 +8,12 @@ import { Skeleton } from "./ui/skeleton";
 import { Suspense } from "react";
 import UpVotes from "./UpVotes";
 import DownVotes from "./DownVotes";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 export type StartupCardType = Omit<Startup, "author"> & { author?: Author };
 
@@ -36,21 +42,32 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
       <div className="flex-between mt-5 gap-5">
         <div className="flex-1">
           <Link href={`/?query=${category?.toLowerCase()}`}>
-            <p className="text-16-medium">{category}</p>
+            <p className="text-16-medium hover:underline hover:text-blue-400">
+              {category}
+            </p>
           </Link>
           <Link href={`/startup/${_id}`}>
             <h3 className="text-26-semibold line-clamp-1">{title}</h3>
           </Link>
         </div>
-        <Link href={`/user/${author?._id}`}>
-          <Image
-            src={author?.image || "/images/github.png"}
-            alt={author?.name || "profile-image"}
-            width={48}
-            height={48}
-            className="rounded-full"
-          />
-        </Link>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Link href={`/user/${author?._id}`}>
+                <Image
+                  src={author?.image || "/images/github.png"}
+                  alt={author?.name || "profile-image"}
+                  width={48}
+                  height={48}
+                  className="rounded-full"
+                />
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="font-semibold">{author?.name}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
       <Link href={`/startup/${_id}`}>
         <p className="startup-card_desc">{description}</p>
